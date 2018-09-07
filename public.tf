@@ -49,7 +49,7 @@ resource "aws_security_group" "sg_web" {
 }
 
 resource "aws_instance" "web1" {
-	ami = "ami-0ebc281c20e89ba4b"
+	ami = "ami-05e4e68905123e3b0"
 	availability_zone= "eu-west-3a"
 	instance_type= "t2.micro"
 	key_name = "keysncfparis"
@@ -64,7 +64,7 @@ resource "aws_instance" "web1" {
 
 
 resource "aws_instance" "web2" {
-	ami = "ami-0ebc281c20e89ba4b"
+	ami = "ami-05e4e68905123e3b0"
 	availability_zone= "eu-west-3b"
 	instance_type= "t2.micro"
 	key_name = "keysncfparis"
