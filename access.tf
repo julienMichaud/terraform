@@ -22,6 +22,7 @@ resource "aws_subnet" "eu-west-3a-public" {
         vpc_id = "${aws_vpc.vpc-terraform.id}"
         cidr_block = "10.0.0.0/24"
         availability_zone = "eu-west-3a"
+        map_public_ip_on_launch = "true"
         tags {
                 Name = "Public Subnet"
         }
@@ -36,7 +37,7 @@ resource "aws_route_table" "eu-west-3a-public" {
         }
 
         tags {
-                Name = "Route Public Subnet"
+                Name = "Route Public Subnet1"
         }
 }
 
@@ -45,6 +46,40 @@ resource "aws_route_table_association" "eu-west-3a-public" {
         route_table_id = "${aws_route_table.eu-west-3a-public.id}"
 }
 
+/*
+Public Subnet 2
+*/
+
+
+resource "aws_subnet" "eu-west-3b-public" {
+        vpc_id = "${aws_vpc.vpc-terraform.id}"
+        cidr_block = "10.0.1.0/24"
+        availability_zone = "eu-west-3a"
+        map_public_ip_on_launch = "true"
+        tags {
+                Name = "Public Subnet2"
+        }
+}
+
+resource "aws_route_table" "eu-west-3b-public" {
+        vpc_id= "${aws_vpc.vpc-terraform.id}"
+
+        route {
+                cidr_block = "0.0.0.0/0"
+                gateway_id = "${aws_internet_gateway.vpc-terraform.id}"
+        }
+
+        tags {
+                Name = "Route Public Subnet"
+        }
+}
+
+resource "aws_route_table_association" "eu-west-3b-public" {
+        subnet_id = "${aws_subnet.eu-west-3b-public.id}"
+        route_table_id = "${aws_route_table.eu-west-3b-public.id}"
+}
+
+
 
 /*
 Private Subnet 1
@@ -52,7 +87,7 @@ Private Subnet 1
 
 resource "aws_subnet" "terraform-private-subnet1" {
     vpc_id = "${aws_vpc.vpc-terraform.id}"
-    cidr_block = "10.0.1.0/24"
+    cidr_block = "10.0.2.0/24"
     availability_zone = "eu-west-3b"
     tags {
         Name = "Private Subnet 1"
@@ -94,7 +129,7 @@ Private Subnet 2
 
 resource "aws_subnet" "terraform-private-subnet2" {
     vpc_id = "${aws_vpc.vpc-terraform.id}"
-    cidr_block = "10.0.2.0/24"
+    cidr_block = "10.0.3.0/24"
     availability_zone = "eu-west-3c"
     tags {
         Name = "Private Subnet 2"

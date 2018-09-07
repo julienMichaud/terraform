@@ -3,14 +3,14 @@ Database Server with RDs service
 */
 
 resource "aws_security_group" "allow_sql" {
-	name = "allow incoming sql request"
+	name = "MySQLSG"
 	description = " allow incoming sql request from the public subnet "
 	vpc_id = "${aws_vpc.vpc-terraform.id}"
 	ingress {
 		from_port = 3306
 		to_port   = 3306
 		protocol = "tcp"
-		security_groups = ["${aws_security_group.sg_web.id}"]
+		cidr_blocks = ["0.0.0.0/0"]
 	}
 
 	egress {
@@ -47,3 +47,4 @@ resource "aws_db_instance" "mariadb" {
 	vpc_security_group_ids = ["${aws_security_group.allow_sql.id}"]
 
 }
+
